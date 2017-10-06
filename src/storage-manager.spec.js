@@ -12,7 +12,7 @@ describe('Storage manager should store and retrieve local data persistently ', (
     expect(expected).toBe(actual);
   });
 
-  it('should return return undefined if it doesnt exist', () => {
+  it('should return undefined if it doesnt exist', () => {
     //when
     const actual = StorageManager.get('some not exist key');
     //then
