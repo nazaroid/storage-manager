@@ -44,7 +44,7 @@ describe('Storage manager should store and retrieve local data persistently ', (
     expect(function () {
       StorageManager.setProperty('some key 4', 'someProp', 123);;
     })
-      .toThrow(new Error("Can't add proprty to non object value"));
+      .toThrow(new Error("Can't add property to non object value"));
   });
 
   it('should return undefined if value is expired', () => {

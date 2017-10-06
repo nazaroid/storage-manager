@@ -33,7 +33,7 @@ const StorageManager = (function () {
 
   const setProperty = function (key, property, value, expiry) {
     const storedValue = get(key);
-    if (typeof (storedValue) !== "object") throw new Error("Can't add proprty to non object value");
+    if (typeof (storedValue) !== "object") throw new Error("Can't add property to non object value");
     const newValue = Object.assign(storedValue, { [property]: value });
     set(key, newValue, expiry);
   }
