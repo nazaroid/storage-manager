@@ -57,11 +57,11 @@ describe('Storage manager should store and retrieve local data persistently ', (
   it('should return undefined if value is expired', () => {
         const expirationSec = 1;
         //when
+        StorageManager.set('some key 1', 'some value', expirationSec);
         const _getDate = StorageManager._getDate;
         StorageManager._getDate = function() {
           return Date.now() + 1000;
         };
-        StorageManager.set('some key 1', 'some value', expirationSec);
         const actual = StorageManager.get('some key 1');
         //then
         expect(actual).toBe(undefined);
