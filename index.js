@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("Es2015WebpackKarmaJasmineBoilerplate", [], factory);
+		define("JsSeed", [], factory);
 	else if(typeof exports === 'object')
-		exports["Es2015WebpackKarmaJasmineBoilerplate"] = factory();
+		exports["JsSeed"] = factory();
 	else
-		root["Es2015WebpackKarmaJasmineBoilerplate"] = factory();
+		root["JsSeed"] = factory();
 })(this, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -52,35 +52,35 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(1);
 
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _example = __webpack_require__(2);
+	var _storageManager = __webpack_require__(2);
 
-	var _example2 = _interopRequireDefault(_example);
+	var _storageManager2 = _interopRequireDefault(_storageManager);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	module.exports = new _example2.default(); /**
-	                                           * Example v1.0.0
-	                                           *
-	                                           * Description 
-	                                           *
-	                                           * @example
-	                                           * // Usage example here
-	                                           */
+	module.exports = _storageManager2.default; /**
+	                                            * Example v1.0.0
+	                                            *
+	                                            * Description 
+	                                            *
+	                                            * @example
+	                                            * // Usage example here
+	                                            */
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	"use strict";
 
@@ -88,16 +88,67 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	var Example = exports.Example = function Example() {
-	  _classCallCheck(this, Example);
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var StorageManager = function () {
+
+	  var M = {
+	    _getDate: function _getDate() {
+	      return Date.now();
+	    }
+	  };
+
+	  var isExpired = function isExpired(data) {
+	    if (!data.exp) return false;
+	    var ageInSec = (M._getDate() - data.timestamp) / 1000;
+	    return ageInSec >= data.exp;
+	  };
+
+	  var set = function set(key, value, expiry) {
+	    var data = {
+	      val: value,
+	      exp: expiry,
+	      timestamp: Date.now()
+	    };
+	    localStorage.setItem(key, JSON.stringify(data));
+	  };
+
+	  var get = function get(key) {
+	    var dataJson = localStorage.getItem(key);
+	    if (!dataJson) return undefined;
+
+	    var data = JSON.parse(dataJson);
+	    return isExpired(data) || data.val == null ? undefined : data.val;
+	  };
+
+	  var remove = function remove(key) {
+	    localStorage.removeItem(key);
+	  };
+
+	  var setProperty = function setProperty(key, property, value, expiry) {
+	    var storedValue = get(key);
+	    if ((typeof storedValue === "undefined" ? "undefined" : _typeof(storedValue)) !== "object") throw new Error("Can't add property to non object value");
+	    var newValue = Object.assign(storedValue, _defineProperty({}, property, value));
+	    set(key, newValue, expiry);
+	  };
+
+	  return Object.assign(M, {
+	    set: set,
+	    get: get,
+	    remove: remove,
+	    setProperty: setProperty
+	  });
+	}();
+
+	window.getStorageManager = function () {
+	  return StorageManager;
 	};
 
-	// ...
-	exports.default = Example;
+	exports.default = window.getStorageManager();
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;

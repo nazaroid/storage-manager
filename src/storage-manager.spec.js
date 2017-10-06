@@ -7,7 +7,7 @@ describe('Storage manager should store and retrieve local data persistently ', (
     //when
     const actual = window.getStorageManager();
     //then
-    expect(expected).toBe(getStorageManager());
+    expect(expected).toBe(actual);
   });
 
   it('should store and retrieve value', () => {
