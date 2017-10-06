@@ -24,7 +24,7 @@ const StorageManager = (function () {
     if (!dataJson) return undefined;
 
     const data = JSON.parse(dataJson);
-    return isExpired(data) || data.val == null ? undefined : data.val;
+    return isExpired(data) ? undefined : data.val;
   }
 
   const remove = function (key) {
