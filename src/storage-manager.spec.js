@@ -30,7 +30,7 @@ describe('Storage manager should store and retrieve local data persistently ', (
     //when
     StorageManager.set('some key 2', 'some value');
     StorageManager.remove('some key 2');
-    const actual = StorageManager.get('some not exist key');
+    const actual = StorageManager.get('some key 2');
     //then
     expect(actual).toBe(undefined);
   });

@@ -120,7 +120,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (!dataJson) return undefined;
 
 	    var data = JSON.parse(dataJson);
-	    return isExpired(data) || data.val == null ? undefined : data.val;
+	    return isExpired(data) ? undefined : data.val;
 	  };
 
 	  var remove = function remove(key) {
