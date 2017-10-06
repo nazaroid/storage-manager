@@ -46,4 +46,6 @@ const StorageManager = (function () {
   })
 })()
 
-export default StorageManager;
+window.getStorageManager = () => StorageManager;
+
+export default window.getStorageManager();

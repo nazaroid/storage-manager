@@ -2,8 +2,15 @@ import StorageManager from './storage-manager';
 
 describe('Storage manager should store and retrieve local data persistently ', () => {
 
-  it('should store and retrieve value', () => {
+  it('should be avail as window.getStorageManager()', () => {
+    const expected = StorageManager;
+    //when
+    const actual = window.getStorageManager();
+    //then
+    expect(expected).toBe(getStorageManager());
+  });
 
+  it('should store and retrieve value', () => {
     const expected = 'some value';
     //when
     StorageManager.set('some key 1', expected);
